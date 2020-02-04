@@ -1,0 +1,52 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Description" : "Dev DynamoDB Table creation",
+  "Parameters": {
+          "env": {
+            "Default": "dev01",
+            "Description": "Set the Environment",
+            "Type": "String",
+            "AllowedValues" : ["dev_VA_test", "dev01", "stg01", "qa01"]
+          },
+          "ReadCapacityUnits": {
+            "Default": "5",
+            "Description": "Read Capacity Units",
+            "Type": "Number",
+            "AllowedValues" : ["dev_VA_test", "dev01", "stg01", "qa01"]
+          }
+        },
+  "Resources" : {
+    
+	    "myDynamoDBTabledev1" : {
+      "Type" : "AWS::DynamoDB::Table",
+      "Properties" : {
+        "AttributeDefinitions" : [
+          {
+            "AttributeName" : "id",
+            "AttributeType" : "S"   
+          },
+          {
+            "AttributeName" : "chunk_id",
+            "AttributeType" : "N"
+          }
+        ],
+        "KeySchema" : [
+          {
+            "AttributeName" : "id",
+            "KeyType" : "HASH"
+          },
+          {
+            "AttributeName" : "chunk_id",
+            "KeyType" : "RANGE"
+          }
+        ],
+        "ProvisionedThroughput" : {
+          "ReadCapacityUnits" : "5",
+          "WriteCapacityUnits" : "5"
+        },
+        "TableName" : {"Fn::Join" : [ "", [ { "Ref" : "env" }, "_1_rvr981"]]} 
+      }
+    }
+
+  }
+}

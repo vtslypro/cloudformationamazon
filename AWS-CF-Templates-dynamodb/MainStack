@@ -1,0 +1,23 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+          "env": {
+            "Default": "dev01",
+            "Description": "Set the Environment",
+            "Type": "String",
+            "AllowedValues" : ["dev_VA_test", "dev01", "stg01", "qa01"]
+          }
+        },
+  "Resources": {
+    "myStack": {
+      "Properties": {
+        "Parameters" : {
+          "env": {"Ref": "env"}
+        },
+        "TemplateURL": "https://s3-external-1.amazonaws.com/cf-templates-pvx31hnbif7u-us-east-1/2017128AcN-createDynamoTable.json"
+      },
+      "Type": "AWS::CloudFormation::Stack"
+    }
+  }
+}
+
